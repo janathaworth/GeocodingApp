@@ -82,6 +82,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMinZoomPreference(6.0f);
     }
 
+    public void setSatelliteType(View view) {
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+    }
+
+    public void setMapType(View view) {
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    public void onZoom(View view)
+    {
+        if(view.getId() == R.id.Bzoomin)
+        {
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        }
+        if(view.getId() == R.id.Bzoomout)
+        {
+            mMap.animateCamera(CameraUpdateFactory.zoomOut());
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

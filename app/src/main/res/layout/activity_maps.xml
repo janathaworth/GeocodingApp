@@ -16,25 +16,65 @@
         android:layout_height="wrap_content"
         tools:context=".MapsActivity" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFFFFF">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <EditText android:id="@+id/edit_message"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <LinearLayout android:id="@+id/banner"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_message"/>
+            android:orientation="horizontal"
+            android:background="#FFFFFF">
+
+            <EditText android:id="@+id/edit_message"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_message"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_send"
+                android:onClick="sendMessage"/>
+        </LinearLayout>
+
+        <Button android:id="@+id/satellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/satellite_button"
+            android:layout_below="@+id/banner"
+            android:onClick="setSatelliteType"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_send"
-            android:onClick="sendMessage"/>
+            android:text="@string/map_button"
+            android:layout_below="@+id/banner"
+            android:layout_toEndOf="@+id/satellite"
+            android:onClick="setMapType"/>
 
-    </LinearLayout>
+        <Button android:id="@+id/Bzoomin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:layout_below="@+id/satellite"
+            android:onClick="onZoom"/>
+
+        <Button android:id="@+id/Bzoomout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_below="@+id/satellite"
+            android:layout_toEndOf="@+id/Bzoomin"
+            android:onClick="onZoom"/>
+
+    </RelativeLayout>
+
+
+
+
+
 
 </FrameLayout>
 

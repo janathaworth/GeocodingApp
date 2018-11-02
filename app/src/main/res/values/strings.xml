@@ -3,4 +3,6 @@
     <string name="edit_message">Enter a location</string>
     <string name="button_send">Geocode</string>
     <string name="title_activity_maps">Map</string>
+    <string name="satellite_button">Satellite</string>
+    <string name="map_button">Map</string>
 </resources>
