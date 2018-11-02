@@ -1,6 +1,5 @@
 package com.example.myfirstapp;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,28 +43,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /** Called when the user clicks the Send button */
     public void sendMessage(View view){
         // Do something in response to button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText =(EditText) findViewById(R.id.edit_message);
         String location = editText.getText().toString();
         location = location.replace(" ", "+");
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        // String url = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyB3R3NhOdAkzw6m-lu2OObbMA8NBQ1_5mw";
         String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyB3R3NhOdAkzw6m-lu2OObbMA8NBQ1_5mw";
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-
                     @Override
                     public void onResponse(JSONObject response) {
-                        // txtCoord.setText("Response: " + response.toString());
                         try {
-                            JSONObject resultContents = ((JSONArray) response.get("results")).getJSONObject(0).getJSONObject("geometry");
-                            double lat = resultContents.getJSONObject("location").getDouble("lat");
-                            double lon = resultContents.getJSONObject("location").getDouble("lng");
-                            //txtCoord.setText("latitude: " + lat  + "\nlongitude: " + lon);
-
+                            JSONObject geometryComponents = ((JSONArray) response.get("results")).getJSONObject(0).getJSONObject("geometry");
+                            double lat = geometryComponents.getJSONObject("location").getDouble("lat");
+                            double lon = geometryComponents.getJSONObject("location").getDouble("lng");
                             JSONArray addressComponents = ((JSONArray) response.get("results")).getJSONObject(0).getJSONArray("address_components");
                             String county = addressComponents.getJSONObject(3).get("long_name").toString();
                             updateMap(lat, lon, county);
@@ -74,15 +67,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-
                     }
                 });
         queue.add(jsonObjectRequest);
     }
+    
     public void updateMap(double lat, double lng, String county) {
         mMap.clear();
         LatLng coord = new LatLng(lat, lng);
@@ -90,24 +82,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         m1.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
         mMap.setMinZoomPreference(6.0f);
-
     }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
