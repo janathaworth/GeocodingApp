@@ -65,7 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             double lat = resultContents.getJSONObject("location").getDouble("lat");
                             double lon = resultContents.getJSONObject("location").getDouble("lng");
                             //txtCoord.setText("latitude: " + lat  + "\nlongitude: " + lon);
-                            updateMap(lat, lon);
+
+                            JSONArray addressComponents = ((JSONArray) response.get("results")).getJSONObject(0).getJSONArray("address_components");
+                            String county = addressComponents.getJSONObject(3).get("long_name").toString();
+                            updateMap(lat, lon, county);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -80,9 +83,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
         queue.add(jsonObjectRequest);
     }
-    public void updateMap(double lat, double lng) {
+    public void updateMap(double lat, double lng, String county) {
+        mMap.clear();
         LatLng coord = new LatLng(lat, lng);
-        Marker m1 = mMap.addMarker(new MarkerOptions().position(coord));
+        Marker m1 = mMap.addMarker(new MarkerOptions().position(coord).title(county));
         m1.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
         mMap.setMinZoomPreference(6.0f);
