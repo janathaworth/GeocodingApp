@@ -85,6 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker m1 = mMap.addMarker(new MarkerOptions().position(coord));
         m1.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
+        mMap.setMinZoomPreference(6.0f);
+
     }
     /**
      * Manipulates the map once available.
