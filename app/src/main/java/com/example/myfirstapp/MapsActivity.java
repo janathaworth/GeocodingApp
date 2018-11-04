@@ -67,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
+                        error.printStackTrace();
                     }
                 });
         queue.add(jsonObjectRequest);
@@ -90,13 +90,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
-    public void onZoom(View view)
+    public void zoom(View view)
     {
-        if(view.getId() == R.id.Bzoomin)
+        if(view.getId() == R.id.zoomin)
         {
             mMap.animateCamera(CameraUpdateFactory.zoomIn());
         }
-        if(view.getId() == R.id.Bzoomout)
+        if(view.getId() == R.id.zoomout)
         {
             mMap.animateCamera(CameraUpdateFactory.zoomOut());
         }

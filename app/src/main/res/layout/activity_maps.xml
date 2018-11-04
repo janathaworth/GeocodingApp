@@ -54,20 +54,20 @@
             android:layout_toEndOf="@+id/satellite"
             android:onClick="setMapType"/>
 
-        <Button android:id="@+id/Bzoomin"
+        <Button android:id="@+id/zoomin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+"
             android:layout_below="@+id/satellite"
-            android:onClick="onZoom"/>
+            android:onClick="zoom"/>
 
-        <Button android:id="@+id/Bzoomout"
+        <Button android:id="@+id/zoomout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:layout_below="@+id/satellite"
-            android:layout_toEndOf="@+id/Bzoomin"
-            android:onClick="onZoom"/>
+            android:layout_toEndOf="@+id/zoomin"
+            android:onClick="zoom"/>
 
     </RelativeLayout>
 
